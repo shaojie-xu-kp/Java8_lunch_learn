@@ -1,4 +1,4 @@
-package com.datalex.java8.Lambda;
+package com.datalex.java8.lambda;
 
 /**
  * Created by shaojie.xu on 10/04/2017.

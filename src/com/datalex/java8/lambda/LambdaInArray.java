@@ -1,4 +1,4 @@
-package com.datalex.java8.Lambda;
+package com.datalex.java8.lambda;
 
 import java.util.Arrays;
 import java.util.Collections;
