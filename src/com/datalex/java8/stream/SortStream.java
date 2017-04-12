@@ -1,5 +1,6 @@
 package com.datalex.java8.stream;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -34,6 +35,9 @@ public class SortStream {
                 .filter( number -> number > 10)
                 .sorted((a,b) -> (a.compareTo(b)))
                 .forEach(System.out::println);
+        System.out.println("\n====================================");
+
+
 
     }
 
