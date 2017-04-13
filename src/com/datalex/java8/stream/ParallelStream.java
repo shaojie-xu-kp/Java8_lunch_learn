@@ -11,7 +11,11 @@ import java.util.concurrent.TimeUnit;
 public class ParallelStream {
 
 
-    public static final int MAX = 1000000;
+    public static final int MAX = 1_000_000;
+
+    public static long T1;
+
+    public static long T2;
 
     public static void sortSequential() {
         List<String> values = new ArrayList<>(MAX);
@@ -20,17 +24,14 @@ public class ParallelStream {
             values.add(uuid.toString());
         }
 
-        // sequential
+        // sequential sorting
+        T1 = System.currentTimeMillis();
 
-        long t0 = System.nanoTime();
+        values.stream().sorted().findAny();
 
-        long count = values.stream().sorted().count();
-        System.out.println(count);
+        T2 = System.currentTimeMillis();
 
-        long t1 = System.nanoTime();
-
-        long millis = TimeUnit.NANOSECONDS.toMillis(t1 - t0);
-        System.out.println(String.format("sequential sort took: %d ms", millis));
+        System.out.println(String.format("sequential sort %d number took: %d ms", MAX, T2-T1));
     }
 
     public static void sortParallel() {
@@ -40,17 +41,14 @@ public class ParallelStream {
             values.add(uuid.toString());
         }
 
-        // sequential
+        // parallel sorting
+        T1 = System.currentTimeMillis();
 
-        long t0 = System.nanoTime();
+        values.parallelStream().sorted().findAny();
 
-        long count = values.parallelStream().sorted().count();
-        System.out.println(count);
+        T2 = System.currentTimeMillis();
 
-        long t1 = System.nanoTime();
-
-        long millis = TimeUnit.NANOSECONDS.toMillis(t1 - t0);
-        System.out.println(String.format("parallel sort took: %d ms", millis));
+        System.out.println(String.format("parallel sort %d number took: %d ms", MAX, T2-T1));
     }
 
     public static void main(String[] args) {

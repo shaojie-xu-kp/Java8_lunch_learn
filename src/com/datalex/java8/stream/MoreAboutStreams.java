@@ -1,7 +1,6 @@
 package com.datalex.java8.stream;
 
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -31,6 +30,7 @@ public class MoreAboutStreams {
         findPersonNameStartsWithA(persons);
         findNamesStartsWithJAgeBiggerThan10(persons);
         countPersonNameContainsA(persons);
+        test5(persons);
 
     }
 
@@ -87,6 +87,14 @@ public class MoreAboutStreams {
         System.out.println("Age sum : " + persons.stream()
                 .mapToInt(person -> person.getAge())
                 .sum());
+
+        // sum with accumulator and combiner, accumlator starts with 0
+        Integer ageSum = persons
+                .parallelStream()
+                .reduce(0,
+                        (sum, p) -> sum += p.getAge(),
+                        (sum1, sum2) -> sum1 + sum2);
+
     }
 
 
@@ -132,6 +140,23 @@ public class MoreAboutStreams {
                 .count();
         System.out.println("Count of Person Name Contains a : " + c);
     }
+
+    private static void test5(List<Person> persons) {
+        Integer ageSum = persons
+                .parallelStream()
+                .reduce(0,
+                        (sum, p) -> {
+                            System.out.format("accumulator: sum=%s; person=%s\n", sum, p);
+                            return sum += p.getAge();
+                        },
+                        (sum1, sum2) -> {
+                            System.out.format("combiner: sum1=%s; sum2=%s\n", sum1, sum2);
+                            return sum1 + sum2;
+                        });
+
+        System.out.println(ageSum);
+    }
+
 }
 
 

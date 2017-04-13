@@ -35,11 +35,11 @@ public class PredicateStream {
     }
 
 
-    private static void printDynamically(List<Integer> numbers, Predicate<Integer> predicate){
+    private static void printDynamically(List<Integer> numbers, Predicate<Integer> predicate) {
 
         System.out.println(numbers.stream()
-                                    .filter(predicate)
-                                    .collect(Collectors.toList()));
+                .filter(predicate)
+                .collect(Collectors.toList()));
 
     }
 
