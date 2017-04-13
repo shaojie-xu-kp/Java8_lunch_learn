@@ -30,6 +30,7 @@ public class MoreAboutStreams {
         averageAge(persons);
         findPersonNameStartsWithA(persons);
         findNamesStartsWithJAgeBiggerThan10(persons);
+        countPersonNameContainsA(persons);
 
     }
 
@@ -124,7 +125,13 @@ public class MoreAboutStreams {
                         .collect(Collectors.toList()));
     }
 
-
+    private static void countPersonNameContainsA(List<Person> persons) {
+        long c = persons
+                .stream()
+                .filter(person -> person.getName().contains("a"))
+                .count();
+        System.out.println("Count of Person Name Contains a : " + c);
+    }
 }
 
 
