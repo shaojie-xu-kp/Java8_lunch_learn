@@ -14,15 +14,11 @@ public class LambdaInRunnable {
                 System.out.println("Hello Lambda");
             }
         };
+        new Thread(runnable1).start();
+
 
         Runnable runnable2 = () -> System.out.println("Hello Lambda");
-
-        Thread t1 = new Thread(runnable1);
-        Thread t2 = new Thread(runnable2);
-
-        t1.start();
-        t2.start();
-
+        new Thread(runnable2).start();
 
     }
 
