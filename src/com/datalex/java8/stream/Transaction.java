@@ -15,7 +15,7 @@ public class Transaction {
 
     private Integer id;
     private Integer value;
-    private String type;
+    private TransactionType type;
 
     public Integer getId() {
         return id;
@@ -33,11 +33,11 @@ public class Transaction {
         this.value = value;
     }
 
-    public String getType() {
+    public TransactionType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(TransactionType type) {
         this.type = type;
     }
 
@@ -45,7 +45,7 @@ public class Transaction {
 
         List<Integer> transactionsIds =
                         transactions.stream()
-                        .filter(t -> t.getType().equals("GROCERY"))
+                        .filter(t -> t.getType() == TransactionType.GROCERY)
                         .sorted(comparing(Transaction::getValue).reversed())
                         .map(Transaction::getId)
                         .collect(toList());
@@ -57,7 +57,7 @@ public class Transaction {
         // filter out the GROCERY type
         List<Transaction> groceryTransactions = new ArrayList<>();
         for(Transaction t: transactions){
-            if(t.getType().equals("GROCERY")){
+            if(t.getType() == TransactionType.GROCERY){
                 groceryTransactions.add(t);
             }
         }
@@ -79,4 +79,7 @@ public class Transaction {
         return transactionIds;
 
     }
+}
+enum TransactionType{
+    FAHSION, GROCERY
 }
