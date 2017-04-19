@@ -27,7 +27,7 @@ public class ParallelStream {
         // sequential sorting
         T1 = System.currentTimeMillis();
 
-        values.stream().sorted().findAny();
+        values.stream().sorted().findFirst();
 
         T2 = System.currentTimeMillis();
 
@@ -44,7 +44,7 @@ public class ParallelStream {
         // parallel sorting
         T1 = System.currentTimeMillis();
 
-        values.parallelStream().sorted().findAny();
+        values.parallelStream().sorted().findFirst();
 
         T2 = System.currentTimeMillis();
 
