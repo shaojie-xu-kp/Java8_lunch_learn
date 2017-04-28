@@ -22,12 +22,14 @@ public class LambdaInArray {
 
     private static void testLambdaWithComparator(List<String> names) {
 
-        Collections.sort(names, new Comparator<String>() {
+        Comparator<String> reverseComparator = new Comparator<String>() {
             @Override
             public int compare(String a, String b) {
                 return b.compareTo(a);
             }
-        });
+        };
+
+        Collections.sort(names, reverseComparator);
 
         Collections.sort(names, (String a, String b) -> {
             return b.compareTo(a);
