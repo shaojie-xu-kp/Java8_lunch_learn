@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 public class ParallelStream {
 
 
-    public static final int MAX = 1_000_000;
+    public static final int MAX = 2_000_000;
 
     public static long T1;
 

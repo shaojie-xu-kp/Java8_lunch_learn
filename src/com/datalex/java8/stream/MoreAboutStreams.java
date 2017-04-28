@@ -80,6 +80,11 @@ public class MoreAboutStreams {
                 .map(person -> person.getAge())
                 .reduce(0, (sum, age) -> sum + age));
 
+        // sum with map -> reduce
+        System.out.println("Age sum : " + persons.stream()
+                .map(Person::getAge)
+                .reduce(0, Integer::sum));
+
         // sum with mapToInt
         System.out.println("Age sum : " + persons.stream()
                 .mapToInt(person -> person.getAge())
