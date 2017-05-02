@@ -35,11 +35,17 @@ public class Reservation {
         this.resComponents = resComponents;
     }
 
+    /**
+     *     simulate the realistic scenario in TDP, all the attribute of type list will be instantiate
+     *     with an empty list
+     */
     public static void main (String... args){
 
-        // simulate the realistic scenario in TDP, all the attribute of type list will be instantiate
-        // with an empty list
-        ResComponent resComponent1 = new ResComponent(1,Arrays.asList());
+
+        // see the out put of code 1
+        ResComponent resComponent1 = new ResComponent(1,Arrays.asList(new Policy("code1")));
+        // if no policy code, we expect to have an exception thrown in method validateAnyPolicyCodeInJava8
+        // ResComponent resComponent1 = new ResComponent(1,Arrays.asList());
         ResComponent resComponent2 = new ResComponent(2,Arrays.asList());
         Reservation res1 = new Reservation(Arrays.asList(resComponent1));
         Reservation res2 = new Reservation(Arrays.asList(resComponent2));
@@ -47,7 +53,7 @@ public class Reservation {
 
         System.out.println(getAllPolicyCodeWithResComSequence1BeforeJava8(reservations));
         System.out.println(getAllPolicyCodeWithResComSequence1InJava8(reservations));
-        System.out.println(getAnyPolicyCodeInJava8(reservations));
+        System.out.println(validateAnyPolicyCodeInJava8(reservations));
 
     }
 
@@ -67,7 +73,7 @@ public class Reservation {
     }
 
 
-    public static List<String> getAllPolicyCodeWithResComSequence1InJava8(List<Reservation> reservations) {
+    private static List<String> getAllPolicyCodeWithResComSequence1InJava8(List<Reservation> reservations) {
 
         return reservations
                     .stream()
@@ -81,7 +87,7 @@ public class Reservation {
                         .collect(toList());
     }
 
-    public static String getAnyPolicyCodeInJava8(List<Reservation> reservations) {
+    private static String validateAnyPolicyCodeInJava8(List<Reservation> reservations) {
         return reservations.stream()
                 .map(reservation -> reservation.getResComponents())
                 .flatMap(Collection::stream)
@@ -126,6 +132,10 @@ class Policy {
 
     public String getPolicyCode() {
         return policyCode;
+    }
+
+    public Policy(String policyCode) {
+        this.policyCode = policyCode;
     }
 
     public void setPolicyCode(String policyCode) {
