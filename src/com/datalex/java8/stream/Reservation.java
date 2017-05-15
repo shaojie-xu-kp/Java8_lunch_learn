@@ -1,9 +1,6 @@
 package com.datalex.java8.stream;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 import static java.util.stream.Collectors.toList;
 
@@ -79,21 +76,21 @@ public class Reservation {
                     .stream()
 //                    .parallel()
                         .map(reservation -> reservation.getResComponents())
-//                        .flatMap(resvCom -> resvCom.stream())
                         .flatMap(Collection::stream)
+//                        .flatMap(resComponentList -> resComponentList.stream())
                         .filter(resComponent ->  resComponent.getSequence() == 1)
                         .map(resComponent -> resComponent.getPolicies())
-                        .flatMap(Collection::stream)
-                        .map(Policy::getPolicyCode)
+                        .flatMap(policyList -> policyList.stream())
+                        .map(policy -> policy.getPolicyCode())
                         .collect(toList());
     }
 
     private static String validateAnyPolicyCodeInJava8(List<Reservation> reservations) {
         return reservations.stream()
                 .map(reservation -> reservation.getResComponents())
-                .flatMap(Collection::stream)
+                .flatMap(resComponentList -> resComponentList.stream())
                 .map(resComponent -> resComponent.getPolicies())
-                .flatMap(Collection::stream)
+                .flatMap(policyList -> policyList.stream())
                 .map(Policy::getPolicyCode)
                 .findAny()
                 .orElseThrow(() -> new AnyException("there is no policy code"));
