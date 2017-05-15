@@ -19,7 +19,9 @@ public class MoreAboutStreams {
                 new Person("mike", 24),
                 new Person("steve", 60),
                 new Person("andy", 30),
-                new Person("jack", 15));
+                new Person("jack", 15),
+                new Person("anna", 20),
+                new Person("andrea", 24));
 
         sortAndCollectToPersonList(persons);
         mutableSortToPersonList(persons);
@@ -28,7 +30,7 @@ public class MoreAboutStreams {
         sumAge(persons);
         averageAge(persons);
         findPersonNameStartsWithA(persons);
-        findNamesStartsWithJAgeBiggerThan10(persons);
+        findAndSortNamesStartsWithAAndAgeBiggerThan10(persons);
         countPersonNameContainsA(persons);
     }
 
@@ -115,13 +117,14 @@ public class MoreAboutStreams {
 
     }
 
-    private static void findNamesStartsWithJAgeBiggerThan10(List<Person> persons) {
+    private static void findAndSortNamesStartsWithAAndAgeBiggerThan10(List<Person> persons) {
         System.out.println("Name Starts With j more than 10 years old : "
                 + persons
                     .stream()
-                    .filter(person -> person.getName().startsWith("j"))
+                    .filter(person -> person.getName().startsWith("a"))
                     .filter(person -> person.getAge() > 10)
                     .map(person -> person.getName())
+                    .sorted(Comparator.naturalOrder())
                     .collect(Collectors.toList())
         );
     }
