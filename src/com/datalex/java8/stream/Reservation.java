@@ -79,6 +79,7 @@ public class Reservation {
                     .stream()
 //                    .parallel()
                         .map(reservation -> reservation.getResComponents())
+//                        .flatMap(resvCom -> resvCom.stream())
                         .flatMap(Collection::stream)
                         .filter(resComponent ->  resComponent.getSequence() == 1)
                         .map(resComponent -> resComponent.getPolicies())
