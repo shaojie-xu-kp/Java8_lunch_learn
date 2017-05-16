@@ -22,9 +22,9 @@ public class OptionalBasic {
         System.out.println(optionalNull.orElse("fallback"));  //"fallback"
         // here an IllegalArgumentException will be thrown, in real case
         // in real scenario an application checked exception could be defined.
+        optionalNull.ifPresent((s) -> System.out.println(s.charAt(0)));     // no output, no NPE
         System.out.println(optionalNull.orElseThrow(() ->
                                     new IllegalArgumentException("there is no element in it")));
-        optionalNull.ifPresent((s) -> System.out.println(s.charAt(0)));     // no output, no NPE
 
 
     }
