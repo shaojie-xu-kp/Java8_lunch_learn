@@ -1,6 +1,8 @@
 package com.datalex.java8.stream;
 
+import java.io.IOException;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -12,16 +14,16 @@ public class MoreAboutStreams {
 
 
         List<Person> persons = Arrays.asList(
-                new Person("perter", 24),
-                new Person("ian", 30),
-                new Person("jacob", 3),
-                new Person("angela", 28),
-                new Person("mike", 24),
-                new Person("steve", 60),
-                new Person("andy", 30),
-                new Person("jack", 15),
-                new Person("anna", 20),
-                new Person("andrea", 24));
+                new Person("perter", 24, "Mr"),
+                new Person("ian", 30, "Mr"),
+                new Person("jacob", 3, "Mr"),
+                new Person("angela", 28, "Ms"),
+                new Person("mike", 24, "Mr"),
+                new Person("steve", 60, "Mr"),
+                new Person("andy", 30, "Mr"),
+                new Person("jack", 15, "Mr"),
+                new Person("anna", 20, "Ms"),
+                new Person("andrea", 24, "Mr"));
 
         sortAndCollectToPersonList(persons);
         mutableSortToPersonList(persons);
@@ -32,6 +34,7 @@ public class MoreAboutStreams {
         findPersonNameStartsWithA(persons);
         findAndSortNamesStartsWithAAndAgeBiggerThan10(persons);
         countPersonNameContainsA(persons);
+        countTitleWithMr(persons);
     }
 
 
@@ -146,6 +149,13 @@ public class MoreAboutStreams {
         System.out.println("Count of Person Name Contains a : " + c);
     }
 
+    private static void countTitleWithMr(List<Person> persons) {
+        System.out.println(String.format("there are %d with title Mr.", persons.stream()
+                .map((FunctionNonThrowException<Person, String>) person -> person.getTitle())
+                .filter(title -> title.equals("Mr"))
+                .count()));
+    }
+
 }
 
 
@@ -153,10 +163,20 @@ class Person {
 
     private String name;
     private int age;
+    private String title;
 
-    public Person(String name, int age) {
+    public Person(String name, int age, String title) {
         this.name = name;
         this.age = age;
+        this.title = title;
+    }
+
+    public String getTitle() throws IOException{
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getName() {
@@ -171,4 +191,20 @@ class Person {
     public String toString() {
         return String.format("%s : %d", name, age);
     }
+}
+
+
+//an function to void checked exception handling in lambda express
+interface FunctionNonThrowException<T, R> extends Function<T, R> {
+
+    @Override
+    default R apply(T t){
+        try{
+            return applyThrows(t);
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    R applyThrows(T t) throws Exception;
 }
